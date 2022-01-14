@@ -14,6 +14,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  local_storage_articles_api:
+    path: packages/local_storage_articles_api
+  articles_repository:
+    path: packages/articles_repository
+  articles_api:
+    path: packages/articles_api
 
 dev_dependencies:
   bloc_test: ^9.0.2
