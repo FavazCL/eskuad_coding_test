@@ -7,13 +7,14 @@ environment:
   sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
+  articles_api:
+    path: ../articles_api
   flutter:
     sdk: flutter
   hive: ^2.0.5
   meta: ^1.3.0
+  path_provider: ^2.0.8
   rxdart: ^0.27.2
-  articles_api:
-    path: ../articles_api
 
 dev_dependencies:
   flutter_test:

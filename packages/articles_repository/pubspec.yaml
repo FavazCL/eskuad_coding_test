@@ -6,6 +6,10 @@ publish_to: none
 environment:
   sdk: ">=2.14.0 <3.0.0"
 
+dependencies: 
+  articles_api:
+    path: ../articles_api
+
 dev_dependencies:
   test: ^1.19.2
   very_good_analysis: ^2.4.0
