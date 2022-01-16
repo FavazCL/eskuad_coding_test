@@ -22,7 +22,7 @@ class LocalStorageArticlesApi extends ArticlesApi {
     Hive.init(directory.path);
 
     final box = await Hive.openBox<Article>('article');
-    return print(box);
+    return print(box.values);
     /*
     final articlesJson = _getValue(kTodosCollectionKey);
     if (articlesJson != null) {

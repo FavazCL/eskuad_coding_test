@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_services_binding: ^0.1.0
   intl: ^0.17.0
   local_storage_articles_api:
     path: packages/local_storage_articles_api

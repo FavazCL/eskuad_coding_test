@@ -8,7 +8,10 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:articles_api/articles_api.dart';
+import 'package:articles_repository/articles_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:eskuad_coding_test/app/view/app.dart';
 import 'package:flutter/widgets.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -25,15 +28,19 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap({required ArticlesApi articlesApi}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
+  final articlesRepository = ArticlesRepository(articlesApi: articlesApi);
+
   await runZonedGuarded(
     () async {
       await BlocOverrides.runZoned(
-        () async => runApp(await builder()),
+        () async => runApp(
+          App(articlesRepository: articlesRepository),
+        ),
         blocObserver: AppBlocObserver(),
       );
     },
