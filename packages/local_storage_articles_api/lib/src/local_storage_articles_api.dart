@@ -14,6 +14,7 @@ class LocalStorageArticlesApi extends ArticlesApi {
     _init();
   }
 
+  List<Article> _articles = <Article>[];
   final _articleStreamController = 
   BehaviorSubject<List<Article>>.seeded(const []);
 
@@ -22,17 +23,21 @@ class LocalStorageArticlesApi extends ArticlesApi {
     Hive.init(directory.path);
 
     final box = await Hive.openBox<Article>('article');
-    return print('siu: ${box.values}');
-    /*
-    final articlesJson = _getValue(kTodosCollectionKey);
-    if (articlesJson != null) {
-      final todos = List<Map>.from(json.decode(articlesJson) as List)
-          .map((jsonMap) => Article.fromJson(Map<String, dynamic>.from(jsonMap)))
-          .toList();
-      _articleStreamController.add(todos);
+    
+    if (box.isNotEmpty) {
+      _articles = box.values.toList();
+      _articleStreamController.add(_articles);
     } else {
       _articleStreamController.add(const []);
-    }*/
+    }
+  }
+
+  void saveArticles(Article article) async {
+    print('SAVE: ARTCLE ${article.toJson()}');
+
+    final box = await Hive.openBox<Article>('article');
+    await box.add(article);
+    print('done');
   }
 
   @override
