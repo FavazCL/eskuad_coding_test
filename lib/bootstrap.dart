@@ -13,6 +13,7 @@ import 'package:articles_repository/articles_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:eskuad_coding_test/app/view/app.dart';
 import 'package:flutter/widgets.dart';
+import 'package:local_storage_articles_api/local_storage_articles_api.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -28,12 +29,18 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap({required ArticlesApi articlesApi}) async {
+Future<void> bootstrap({
+  required ArticlesApi articlesApi,
+  required LocalStorageArticlesApi localStorageApi,
+}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  final articlesRepository = ArticlesRepository(articlesApi: articlesApi);
+  final articlesRepository = ArticlesRepository(
+    articlesApi: articlesApi,
+    localStorageArticlesApi: localStorageApi,
+  );
 
   await runZonedGuarded(
     () async {

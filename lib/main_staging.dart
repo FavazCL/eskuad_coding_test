@@ -13,5 +13,6 @@ void main() {
   FlutterServicesBinding.ensureInitialized();
 
   final articlesApi = LocalStorageArticlesApi();
-  bootstrap(articlesApi: articlesApi);
+  final localStorageApi = LocalStorageArticlesApi();
+  bootstrap(articlesApi: articlesApi, localStorageApi: localStorageApi);
 }
