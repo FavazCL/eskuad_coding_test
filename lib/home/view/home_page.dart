@@ -28,18 +28,12 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: state.articles.isNotEmpty
           ? ListView.builder(
+              shrinkWrap: true,
               itemCount: state.articles.length,
               itemBuilder: (context, index) {
                 final article = state.articles[index];
-                return ListTile(
-                  key: const Key('statsView_completedTodos_listTile'),
-                  leading: const Icon(Icons.check_rounded),
-                  title: Text(article.author ?? ''),
-                  trailing: Text(
-                    '${article.title}',
-                    style: textTheme.headline5,
-                  ),
-                );
+
+                return Text('a: ${article.createdAt} - id: ${article.id}');
               },
             )
           : const Center(

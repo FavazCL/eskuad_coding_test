@@ -22,7 +22,7 @@ class LocalStorageArticlesApi extends ArticlesApi {
     Hive.init(directory.path);
 
     final box = await Hive.openBox<Article>('article');
-    return print(box.values);
+    return print('siu: ${box.values}');
     /*
     final articlesJson = _getValue(kTodosCollectionKey);
     if (articlesJson != null) {
@@ -36,6 +36,6 @@ class LocalStorageArticlesApi extends ArticlesApi {
   }
 
   @override
-  Stream<List<Article>> getArticles() => 
+  Stream<List<Article>> getArticles({Map<String, dynamic>? queryParams}) => 
     _articleStreamController.asBroadcastStream();
 }
