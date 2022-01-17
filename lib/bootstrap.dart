@@ -10,6 +10,7 @@ import 'dart:developer';
 
 import 'package:articles_api/articles_api.dart';
 import 'package:articles_repository/articles_repository.dart';
+import 'package:articles_repository/utils/network_info.dart';
 import 'package:bloc/bloc.dart';
 import 'package:eskuad_coding_test/app/view/app.dart';
 import 'package:flutter/widgets.dart';
@@ -32,6 +33,7 @@ class AppBlocObserver extends BlocObserver {
 Future<void> bootstrap({
   required ArticlesApi articlesApi,
   required LocalStorageArticlesApi localStorageApi,
+  required NetworkInfo networkInfo,
 }) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
@@ -40,6 +42,7 @@ Future<void> bootstrap({
   final articlesRepository = ArticlesRepository(
     articlesApi: articlesApi,
     localStorageArticlesApi: localStorageApi,
+    networkInfo: networkInfo,
   );
 
   await runZonedGuarded(

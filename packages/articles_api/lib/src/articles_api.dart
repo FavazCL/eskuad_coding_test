@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:articles_api/articles_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:rxdart/subjects.dart';
 
 /// Exception thrown when getArticles fails.
 class ArticleRequestFailure implements Exception {}
@@ -22,9 +23,9 @@ class ArticlesApi {
   final http.Client _httpClient;
 
   /// Provides a [Stream] of all todos.
-  Stream<List<Article>> getArticles({
+  Future<List<Article>> getArticles({
     Map<String, dynamic>? queryParams,
-  }) async* {
+  }) async {
     final queryParam = {'query': 'mobile'};
     final articleRequest =
         Uri.https(_baseUrl, 'api/v1/search_by_date', queryParam);
@@ -50,6 +51,6 @@ class ArticlesApi {
         .map((jsonMap) => Article.fromJson(Map<String, dynamic>.from(jsonMap)))
         .toList();
 
-    yield articles;
+    return articles;
   }
 }
