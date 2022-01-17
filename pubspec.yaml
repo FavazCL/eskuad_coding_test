@@ -7,19 +7,20 @@ environment:
   sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
+  articles_api:
+    path: packages/articles_api
+  articles_repository:
+    path: packages/articles_repository
   bloc: ^8.0.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_services_binding: ^0.1.0
   intl: ^0.17.0
   local_storage_articles_api:
     path: packages/local_storage_articles_api
-  articles_repository:
-    path: packages/articles_repository
-  articles_api:
-    path: packages/articles_api
 
 dev_dependencies:
   bloc_test: ^9.0.2

@@ -5,9 +5,14 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:eskuad_coding_test/app/app.dart';
 import 'package:eskuad_coding_test/bootstrap.dart';
+import 'package:flutter_services_binding/flutter_services_binding.dart';
+import 'package:local_storage_articles_api/local_storage_articles_api.dart';
 
 void main() {
-  bootstrap(() => const App());
+  FlutterServicesBinding.ensureInitialized();
+
+  final articlesApi = LocalStorageArticlesApi();
+  final localStorageApi = LocalStorageArticlesApi();
+  bootstrap(articlesApi: articlesApi, localStorageApi: localStorageApi);
 }
