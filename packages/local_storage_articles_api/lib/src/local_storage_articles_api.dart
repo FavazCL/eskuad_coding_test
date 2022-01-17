@@ -11,19 +11,21 @@ import 'package:rxdart/subjects.dart';
 class LocalStorageArticlesApi extends ArticlesApi {
   /// {@macro local_storage_articles_api}
   LocalStorageArticlesApi() {
-    _init();
+    // _init();
   }
 
   List<Article> _articles = <Article>[];
-  final _articleStreamController = 
-  BehaviorSubject<List<Article>>.seeded(const []);
+  final _articleStreamController =
+      BehaviorSubject<List<Article>>.seeded(const []);
 
-  void _init() async {
+  Future<void> _init() async {
     final directory = await path_provider.getApplicationDocumentsDirectory();
-    Hive.init(directory.path);
+    Hive
+      ..init(directory.path)
+      ..registerAdapter(ArticleAdapter());
 
     final box = await Hive.openBox<Article>('article');
-    
+
     if (box.isNotEmpty) {
       _articles = box.values.toList();
       _articleStreamController.add(_articles);
@@ -32,15 +34,40 @@ class LocalStorageArticlesApi extends ArticlesApi {
     }
   }
 
-  void saveArticles(Article article) async {
-    print('SAVE: ARTCLE ${article.toJson()}');
-
+  /// Save articles in the local storage
+  Future<void> saveArticles(List<Article> articles) async {
+    final directory = await path_provider.getApplicationDocumentsDirectory();
+    Hive
+      ..init(directory.path)
+      ..registerAdapter(ArticleAdapter());
     final box = await Hive.openBox<Article>('article');
-    await box.add(article);
-    print('done');
+
+    for (final article in articles) {
+      final item = box.get(article.id, defaultValue: article);
+      print('item: $item');
+      print('item isEmpty?: ${item == null}');
+      if (item == null) {
+       await box.add(article);
+      }
+    }
+
+    print('done: ${articles}');
   }
 
+  // TODO: REPLACE THIS METHOD FOR OTHER, HAY QUE AGREGAR UNO DE BOX :D
   @override
-  Stream<List<Article>> getArticles({Map<String, dynamic>? queryParams}) => 
-    _articleStreamController.asBroadcastStream();
+  Future<List<Article>> getArticles({
+    Map<String, dynamic>? queryParams,
+  }) async {
+     final directory = await path_provider.getApplicationDocumentsDirectory();
+    Hive
+      ..init(directory.path)
+      ..registerAdapter(ArticleAdapter());
+    final box = await Hive.openBox<Article>('article');
+
+    _articles = box.values.toList();
+    print(_articles);
+    return _articles;
+  }
+      // _articles;
 }

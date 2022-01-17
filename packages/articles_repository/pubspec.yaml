@@ -9,6 +9,7 @@ environment:
 dependencies: 
   articles_api:
     path: ../articles_api
+  connectivity_plus: ^2.2.0
   local_storage_articles_api:
     path: ../local_storage_articles_api
 

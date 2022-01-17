@@ -12,6 +12,7 @@ dependencies:
   articles_repository:
     path: packages/articles_repository
   bloc: ^8.0.2
+  connectivity_plus: ^2.2.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

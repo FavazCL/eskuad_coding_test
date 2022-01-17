@@ -6,14 +6,24 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:articles_api/articles_api.dart';
+import 'package:articles_repository/utils/network_info.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:eskuad_coding_test/bootstrap.dart';
 import 'package:flutter_services_binding/flutter_services_binding.dart';
 import 'package:local_storage_articles_api/local_storage_articles_api.dart';
 
-void main() {
+Future<void> main() async {
   FlutterServicesBinding.ensureInitialized();
 
   final articlesApi = ArticlesApi();
   final localStorageApi = LocalStorageArticlesApi();
-  bootstrap(articlesApi: articlesApi, localStorageApi: localStorageApi);
+  final checker = await Connectivity().checkConnectivity();
+  final networkInfo = NetworkInfoImpl(checker);
+
+  return bootstrap(
+    articlesApi: articlesApi,
+    localStorageApi: localStorageApi,
+    networkInfo: networkInfo,
+  );
 }
