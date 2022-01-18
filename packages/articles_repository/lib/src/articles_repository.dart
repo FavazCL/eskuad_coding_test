@@ -27,15 +27,10 @@ class ArticlesRepository {
   /// Provides a [Stream] of all articles.
   Stream<List<Article>> getArticles() async* {
     if (!_networkInfo.isConnected) {
-      try {
-        final articles = _articlesApi.getArticles();
-        print('arti typef: ${articles.runtimeType}');
-        await _localStorageArticlesApi.saveArticles(await articles);
+      final articles = _articlesApi.getArticles();
+      await _localStorageArticlesApi.saveArticles(await articles);
 
-        yield* Stream.fromFuture(articles);
-      } catch (e) {
-        print('e: $e');
-      }
+      yield* Stream.fromFuture(articles);
     } else {
       final articles = _localStorageArticlesApi.getArticles();
       yield* Stream.fromFuture(articles);

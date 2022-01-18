@@ -6,7 +6,6 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:articles_repository/articles_repository.dart';
-import 'package:eskuad_coding_test/counter/counter.dart';
 import 'package:eskuad_coding_test/home/home.dart';
 import 'package:eskuad_coding_test/l10n/l10n.dart';
 import 'package:flutter/material.dart';

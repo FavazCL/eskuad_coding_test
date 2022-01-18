@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:articles_api/articles_api.dart';
 import 'package:http/http.dart' as http;
-import 'package:rxdart/subjects.dart';
 
 /// Exception thrown when getArticles fails.
 class ArticleRequestFailure implements Exception {}
@@ -22,7 +21,7 @@ class ArticlesApi {
   static const _baseUrl = 'hn.algolia.com';
   final http.Client _httpClient;
 
-  /// Provides a [Stream] of all todos.
+  /// Provides a [Future] of all articles.
   Future<List<Article>> getArticles({
     Map<String, dynamic>? queryParams,
   }) async {
@@ -47,10 +46,8 @@ class ArticlesApi {
       throw ArticleNotFoundFailure();
     }
 
-    final articles = List<Map>.from(articleJson)
+    return List<Map>.from(articleJson)
         .map((jsonMap) => Article.fromJson(Map<String, dynamic>.from(jsonMap)))
         .toList();
-
-    return articles;
   }
 }

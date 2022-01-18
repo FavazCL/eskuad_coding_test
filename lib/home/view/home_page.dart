@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeBloc(
         articlesRepository: context.read<ArticlesRepository>(),
-      )..add(const StatsSubscriptionRequested()),
+      )..add(const ArticlesSubscriptionRequest()),
       child: const HomeView(),
     );
   }

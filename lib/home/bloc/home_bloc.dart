@@ -10,13 +10,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required ArticlesRepository articlesRepository,
   })  : _articlesRepository = articlesRepository,
         super(const HomeState()) {
-    on<StatsSubscriptionRequested>(_onSubscriptionRequested);
+    on<ArticlesSubscriptionRequest>(_onSubscriptionRequested);
   }
 
   final ArticlesRepository _articlesRepository;
 
   Future<void> _onSubscriptionRequested(
-    StatsSubscriptionRequested event,
+    ArticlesSubscriptionRequest event,
     Emitter<HomeState> emit,
   ) async {
     emit(state.copyWith(status: HomeStatus.loading));

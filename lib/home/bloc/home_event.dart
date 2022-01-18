@@ -7,6 +7,6 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class StatsSubscriptionRequested extends HomeEvent {
-  const StatsSubscriptionRequested();
+class ArticlesSubscriptionRequest extends HomeEvent {
+  const ArticlesSubscriptionRequest();
 }
