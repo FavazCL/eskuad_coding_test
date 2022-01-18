@@ -12,6 +12,14 @@ class LocalStorageArticlesApi extends ArticlesApi {
   /// {@macro local_storage_articles_api}
   LocalStorageArticlesApi() {
     // _init();
+    _initHive();
+  }
+
+  void _initHive() async {
+    final directory = await path_provider.getApplicationDocumentsDirectory();
+  Hive
+    ..init(directory.path)
+    ..registerAdapter(ArticleAdapter());
   }
 
   List<Article> _articles = <Article>[];
@@ -36,18 +44,15 @@ class LocalStorageArticlesApi extends ArticlesApi {
 
   /// Save articles in the local storage
   Future<void> saveArticles(List<Article> articles) async {
-    final directory = await path_provider.getApplicationDocumentsDirectory();
-    Hive
-      ..init(directory.path)
-      ..registerAdapter(ArticleAdapter());
+    // final directory = await path_provider.getApplicationDocumentsDirectory();
+    // Hive
+    //   ..init(directory.path)
+    //   ..registerAdapter(ArticleAdapter());
     final box = await Hive.openBox<Article>('article');
 
-    for (final article in articles) {
-      final item = box.get(article.id, defaultValue: article);
-      print('item: $item');
-      print('item isEmpty?: ${item == null}');
-      if (item == null) {
-       await box.add(article);
+    if (box.values.isEmpty) {
+      for (final article in articles) {
+        await box.add(article);
       }
     }
 
@@ -59,15 +64,20 @@ class LocalStorageArticlesApi extends ArticlesApi {
   Future<List<Article>> getArticles({
     Map<String, dynamic>? queryParams,
   }) async {
-     final directory = await path_provider.getApplicationDocumentsDirectory();
-    Hive
-      ..init(directory.path)
-      ..registerAdapter(ArticleAdapter());
-    final box = await Hive.openBox<Article>('article');
-
-    _articles = box.values.toList();
-    print(_articles);
-    return _articles;
+    try {
+      //    final directory = await path_provider.getApplicationDocumentsDirectory();
+      // Hive
+      //   ..init(directory.path)
+      //   ..registerAdapter(ArticleAdapter());
+      final box = await Hive.openBox<Article>('article');
+      print('box: ${box.values}');
+      _articles = box.values.toList();
+      print(_articles);
+      return _articles;
+    } catch (e) {
+      print(e);
+      return [];
+    }
   }
-      // _articles;
+  // _articles;
 }
