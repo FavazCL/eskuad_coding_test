@@ -22,6 +22,7 @@ dependencies:
   intl: ^0.17.0
   local_storage_articles_api:
     path: packages/local_storage_articles_api
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   bloc_test: ^9.0.2
