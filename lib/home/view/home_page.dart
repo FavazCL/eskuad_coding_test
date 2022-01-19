@@ -49,7 +49,7 @@ class HomeView extends StatelessWidget {
     if (state.status == HomeStatus.success) {
       return ArticleList(articles: state.articles);
     } else if (state.status == HomeStatus.loading) {
-      return const CircularProgressIndicator();
+      return const Center(child: CircularProgressIndicator());
     } else if (state.status == HomeStatus.initial) {
       return const SizedBox.shrink();
     } else {

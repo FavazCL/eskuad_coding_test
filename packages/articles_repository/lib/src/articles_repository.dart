@@ -26,7 +26,8 @@ class ArticlesRepository {
 
   /// Provides a [Stream] of all articles.
   Stream<List<Article>> getArticles() async* {
-    if (!_networkInfo.isConnected) {
+    if (_networkInfo.isConnected) {
+      print('aca');
       final articles = _articlesApi.getArticles();
       await _localStorageArticlesApi.saveArticles(await articles);
 

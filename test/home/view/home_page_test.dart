@@ -10,9 +10,11 @@ import 'package:articles_repository/articles_repository.dart';
 import 'package:articles_repository/utils/network_info.dart';
 import 'package:eskuad_coding_test/app/app.dart';
 import 'package:eskuad_coding_test/home/home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_storage_articles_api/local_storage_articles_api.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MockArticlesApi extends Mock implements ArticlesApi {}
 
@@ -38,10 +40,10 @@ void main() {
       networkInfo: mockNetworkInfo,
     );
   });
-  group('App', () {
-    testWidgets('renders HomePage', (tester) async {
+  group('HomePage', () {
+    testWidgets('renders HomeView', (tester) async {
       await tester.pumpWidget(App(articlesRepository: articlesRepository));
-      expect(find.byType(HomePage), findsOneWidget);
+      expect(find.byType(HomeView), findsOneWidget);
     });
   });
 }
