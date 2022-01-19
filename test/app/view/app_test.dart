@@ -5,15 +5,25 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:articles_repository/articles_repository.dart';
 import 'package:eskuad_coding_test/app/app.dart';
-import 'package:eskuad_coding_test/counter/counter.dart';
+import 'package:eskuad_coding_test/home/home.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockArticlesRepository extends Mock
+    implements ArticlesRepository {}
 
 void main() {
+  late MockArticlesRepository? mockArticlesRepository;
+
+  setUp(() {
+    mockArticlesRepository = MockArticlesRepository();
+  });
   group('App', () {
-    // testWidgets('renders CounterPage', (tester) async {
-    //   await tester.pumpWidget(const App());
-    //   expect(find.byType(CounterPage), findsOneWidget);
-    // });
+    testWidgets('renders CounterPage', (tester) async {
+       await tester.pumpWidget(App(articlesRepository: mockArticlesRepository!));
+      expect(find.byType(HomePage), findsOneWidget);
+    });
   });
 }
