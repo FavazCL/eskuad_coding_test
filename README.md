@@ -60,6 +60,19 @@ $ open coverage/index.html
 - Flutter: 2.5.3 (Channel Stable)
 - Dart: Dart 2.14.4
 
+---
+
+## Architecture 
+
+ Each layer has a single responsibility and can be used and tested in isolation. This allows us to keep changes contained to a specific layer in order to minimize the impact on the entire application. In addition, layering our application allows us to easily reuse libraries across multiple projects (especially with respect to the data layer).
+
+ Main layers:
+ - data layer
+ - domain layer
+ - feature layer
+   - presentation/UI (widgets)
+   - business logic (blocs/cubits)
+
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
 [internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
